@@ -17,9 +17,6 @@ coveralls = "^3.2.0"
 [tool.taskipy.tasks]
 test = { cmd = "pytest -vvv --cov=cutlass", help = "Run all the tests"}
 
-[tool.poetry.scripts]
-krypto = "krypto:cli"
-
 [tool.krypto]
 prefix = "TODO"
 attach-issue = true
