@@ -1,0 +1,26 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.1.6
+
+      - name: Install dev dependencies
+        run: |
+          poetry install
+          poetry -V
+          poetry run pytest -V
+
+      - name: Run the test suite
+        run: |
+          poetry run task test
+          poetry run coveralls --service=github
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN  }}

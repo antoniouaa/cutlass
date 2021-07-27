@@ -1,0 +1,17 @@
+name: Krypto
+
+on: [push, pull_request]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Generate issues
+        uses: antoniouaa/krypto@v1
+        with:
+          dir: "./cutlass"
+        env:
+          TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}

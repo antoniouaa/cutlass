@@ -1,0 +1,16 @@
+name: Linting
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Checkout black
+        uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./cutlass"
