@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Generate issues
-        uses: antoniouaa/krypto@master
+        uses: antoniouaa/krypto@v2
         with:
           dir: "."
         env:
