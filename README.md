@@ -1,3 +1,31 @@
 # Cutlass
 
 Parse international phone numbers the right way.
+
+## Args
+
+### `in_file`
+
+**Required** An excel file to read numbers from. The operations happen in-place by default.
+
+### `[-o out_file]`
+
+**Optional** An output file to dump the results into. If does not exist, create it. Otherwise, update it.
+
+## Sample Usage
+
+No build and install:
+
+```console
+python -m cutlass sample_excel_file.xls [-o output_excel_file.xls]
+```
+
+With build and install:
+
+```console
+cutlass sample_excel_file.xls [-o output_excel_file.xls]
+```
+
+## Build and Install
+
+First you need [poetry](https://python-poetry.org/).
