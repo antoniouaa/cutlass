@@ -1,5 +1,10 @@
 # Cutlass
 
+![tests](https://github.com/antoniouaa/cutlass/actions/workflows/test.yml/badge.svg)
+![black](https://github.com/antoniouaa/cutlass/actions/workflows/black.yml/badge.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Coverage Status](https://coveralls.io/repos/github/antoniouaa/cutlass/badge.svg?branch=master&service=github)](https://coveralls.io/github/antoniouaa/cutlass?branch=master)
+
 Parse international phone numbers the right way.
 
 ## Args

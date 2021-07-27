@@ -12,6 +12,6 @@ jobs:
       - name: Generate issues
         uses: antoniouaa/krypto@v1
         with:
-          dir: "./cutlass"
+          dir: "."
         env:
           TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
