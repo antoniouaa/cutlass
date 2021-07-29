@@ -49,3 +49,7 @@ def parse_workbook(workbook_path: pathlib.Path) -> pandas.DataFrame:
     wb = pandas.read_excel(workbook_path)
     wb[["Parsed", "Country", "Short"]] = wb.apply(parse_phonenumber, axis=1)
     return wb
+
+
+def dump_workbook(workbook: pandas.DataFrame, out_file: pathlib.Path) -> None:
+    workbook.to_excel(out_file, sheet_name="Parsed Phone numbers")
