@@ -48,6 +48,8 @@ def parse_phonenumber(row: pandas.Series) -> pandas.Series:
 def parse_workbook(workbook_path: pathlib.Path) -> pandas.DataFrame:
     wb = pandas.read_excel(workbook_path)
     wb[["Parsed", "Country", "Short"]] = wb.apply(parse_phonenumber, axis=1)
+    wb = wb.sort_values("Parsed")
+    wb.index = pandas.RangeIndex(start=1, stop=len(wb) + 1)
     return wb
 
 
