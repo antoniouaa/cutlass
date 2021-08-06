@@ -19,16 +19,10 @@ Parse international phone numbers the right way.
 
 ## Sample Usage
 
-No build and install:
+Run with poetry
 
-```console
-python -m cutlass sample_excel_file.xls [-o output_excel_file.xls]
-```
-
-With build and install:
-
-```console
-cutlass sample_excel_file.xls [-o output_excel_file.xls]
+```sh
+python -m cutlass in_file.xls [-o out_file.xls]
 ```
 
 ## Build and Install
@@ -37,10 +31,11 @@ First you need [poetry](https://python-poetry.org/).
 
 Clone the repository and build it with poetry.
 
-```console
+```sh
 git clone https://github.com/antoniouaa/cutlass.git
 cd cutlass
 
 poetry build
 pip install .
+cutlass in_file.xls [-o out_file.xls]
 ```
