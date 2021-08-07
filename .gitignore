@@ -6,4 +6,4 @@ dist/
 
 .coverage
 
-result.xlsx
+*.xls*

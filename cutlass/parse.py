@@ -48,10 +48,21 @@ def parse_phonenumber(row: pandas.Series) -> pandas.Series:
 def parse_workbook(workbook_path: pathlib.Path) -> pandas.DataFrame:
     wb = pandas.read_excel(workbook_path)
     wb[["Parsed", "Country", "Short"]] = wb.apply(parse_phonenumber, axis=1)
-    wb = wb.sort_values("Parsed")
-    wb.index = pandas.RangeIndex(start=1, stop=len(wb) + 1)
     return wb
 
 
+def reset_index(workbook: pandas.DataFrame) -> None:
+    workbook.index = pandas.RangeIndex(start=1, stop=len(workbook) + 1)
+
+
 def dump_workbook(workbook: pandas.DataFrame, out_file: pathlib.Path) -> None:
-    workbook.to_excel(out_file, sheet_name="Parsed Phone numbers")
+    try:
+        existing = pandas.read_excel(out_file, converters={"Parsed": str})
+        whole = pandas.concat([existing, workbook], join="inner")
+        whole.drop_duplicates(subset=["Parsed", "Company"], keep="first", inplace=True)
+    except FileNotFoundError:
+        whole = workbook
+
+    whole = whole.sort_values(["Country", "Parsed"])
+    reset_index(whole)
+    whole.to_excel(out_file, sheet_name="Parsed Phone numbers")
