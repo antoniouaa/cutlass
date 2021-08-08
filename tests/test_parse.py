@@ -22,12 +22,42 @@ def test_dataclasses():
 
 
 def test_phonenumber_parse():
-    phonenumber = pandas.Series(["+41 75 550 43 10"])
+    phonenumber = pandas.Series(["+41 7555 04310"])
     parsed = parse_phonenumber(phonenumber)
 
     assert parsed[0] == "41755504310"
     assert parsed[1] == "Switzerland"
     assert parsed[2] == "CH"
+
+    phonenumber = pandas.Series(["+357 94 861838"])
+    parsed = parse_phonenumber(phonenumber)
+
+    assert parsed[0] == "35794861838"
+    assert parsed[1] == "Cyprus"
+    assert parsed[2] == "CY"
+
+
+def test_phonenumber_parse_malformed():
+    phonenumber = pandas.Series(["(41)-7555-04310"])
+    parsed = parse_phonenumber(phonenumber)
+
+    assert parsed[0] == "41755504310"
+    assert parsed[1] == "Switzerland"
+    assert parsed[2] == "CH"
+
+    phonenumber = pandas.Series(["(0+357)-94-861838"])
+    parsed = parse_phonenumber(phonenumber)
+
+    assert parsed[0] == "35794861838"
+    assert parsed[1] == "Cyprus"
+    assert parsed[2] == "CY"
+
+    phonenumber = pandas.Series(["+0357 (94)861838"])
+    parsed = parse_phonenumber(phonenumber)
+
+    assert parsed[0] == "35794861838"
+    assert parsed[1] == "Cyprus"
+    assert parsed[2] == "CY"
 
 
 def test_workbook_parse(workbook):

@@ -27,7 +27,10 @@ def load_codes_and_clean(
         names = json.load(names_file)
     countries = {}
     for country, code in codes.items():
-        extension = re.sub(r"([a-zA-Z\s\-\+])", "", code)
+        extension = re.sub(r"([\s\-\+])", "", code)
+        # TODO: Figure out multiple extension codes eg Dominican Republic
+        if re.search(r"[a-zA-Z]+", extension):
+            continue
         if extension != "":
             countries[country] = Country(
                 name=names[country],
@@ -37,9 +40,14 @@ def load_codes_and_clean(
     return countries
 
 
+# TODO[Enhancement]: Possibility for malformed home numbers
+# Some dummies might include home specific digits like the UK's
+# (0) in their international number. eg +44 (0)xxxx xxxxxx
+
+
 def parse_phonenumber(row: pandas.Series) -> pandas.Series:
     codes = load_codes_and_clean()
-    number = re.sub(r"([a-zA-Z\s\-\+])", "", row[0])
+    number = re.sub(r"(^0+|\+0*|\s|-|^\(0+|\(|\))", "", row[0])
     for _, country in codes.items():
         if number.startswith(country.extension):
             return pandas.Series([number, country.name, country.short_name])
